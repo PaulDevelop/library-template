@@ -1457,5 +1457,39 @@ class Template extends Base implements ITemplate
         // return
         return $result;
     }
+
+    public function getConfig() {
+        $result = new \stdClass();
+        $result->process = array();
+
+        $tree = $this->buildNodeTree($this->parse($this->templateFileName));
+        try {
+            $configNode = $tree->getNode('template.config');
+            if ( $configNode != null ) {
+                $childNodeList = $configNode->getNodes();
+                /** @var \Com\PaulDevelop\Library\Template\Tag $childNode */
+                foreach ( $childNodeList as $childNode ) {
+                    var_dump($childNode);
+                    if (gettype($childNode) == 'object'
+                        && get_class($childNode) == 'Com\PaulDevelop\Library\Template\Tag'
+                    ) {
+                        if ( $childNode->getName() == 'process') {
+                            if ( $childNode->Attributes['action'] != null ) {
+                                $action = $childNode->Attributes['action']->Value;
+                                $condition = $childNode->Attributes['condition']->Value;
+                                if ( $condition != null ) {
+                                    array_push($result->process, array('action' => $action, 'condition' => $condition));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        catch ( ChildDoesNotExistException $childDoesNotExistException) {
+
+        }
+        return $result;
+    }
     #endregion
 }
