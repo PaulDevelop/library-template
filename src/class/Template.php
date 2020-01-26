@@ -287,7 +287,7 @@ class Template extends Base implements ITemplate
             }
 
             foreach ($templateConfig->process as $processInstruction) {
-                if ($processInstruction['action'] == 'ignore') {
+                if ($processInstruction['action'] === 'ignore') {
                     // check condition
                     $condition = $processInstruction['condition'];
                     $checkCondition = $this->check($parentScopeVariables, $condition);
