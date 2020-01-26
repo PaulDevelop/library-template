@@ -263,6 +263,46 @@ class Template extends Base implements ITemplate
         return $content;
     }
 
+    /**
+     * Process ignore process instructions
+     *
+     * @return bool
+     */
+    public function processConfigProcessIngoreInstructions()
+    {
+        // result
+        $result = false;
+
+        // read config process instructions
+        $templateConfig = null;
+        try {
+            $templateConfig = $this->getConfig();
+        } catch (ChildDoesNotExistException $e) {
+            return $result;
+        }
+        if ( $templateConfig != null ) {
+            $parentScopeVariables = array();
+            foreach ($this->bindingVariables as $key => $value) {
+                $parentScopeVariables[$key] = $value;
+            }
+
+            foreach ($templateConfig->process as $processInstruction) {
+                if ($processInstruction['action'] == 'ignore') {
+                    // check condition
+                    $condition = $processInstruction['condition'];
+                    $checkCondition = $this->check($parentScopeVariables, $condition);
+                    if ( $checkCondition === true ) {
+                        $result = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // return
+        return $result;
+    }
+
     private function buildNodeTree($nodeList = null)
     {
         // init
