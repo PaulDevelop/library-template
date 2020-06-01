@@ -1327,7 +1327,7 @@ class Template extends Base implements ITemplate
                         $parameter
                     );
                 } elseif (array_key_exists($functionName, $this->functions)) { // check functions array
-                    $value = call_user_func($this->functions[$functionName], $parameter);
+                    $value = call_user_func($this->functions[$functionName], $parameter, $parentScopeVariables, $localScopeVariables);
                 }
             }
             $this->registerVariable($name, $value, $parentScopeVariables, $localScopeVariables);
