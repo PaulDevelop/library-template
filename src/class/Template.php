@@ -569,7 +569,7 @@ class Template extends Base implements ITemplate
                         $localScopeVariables
                     );
                 } else { // assume scalar value
-                    $parentScopeVariables[$variableName.'['.$i.']'] = $variableContent[$i];
+                    $parentScopeVariables[$variableName.'['.$i.'].value'] = $variableContent[$i];
                 }
             }
         }
