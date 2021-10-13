@@ -1083,7 +1083,7 @@ class Template extends Base implements ITemplate
 
                     // process variables
                     $content = $this->pregReplaceCallback(
-                        '/(?<!\\\\)((?:\\\\\\\\)*)%((?:_|[a-z])[a-z0-9-_\.\:]*)%/i',
+                        '/(?<!\\\\)((?:\\\\\\\\)*)%((?:_|[a-z])[a-z0-9-_\.\:]+)%/i',
                         $content,
                         'Com\PaulDevelop\Library\Template\Template::processVariableString',
                         array_merge(
@@ -1093,7 +1093,7 @@ class Template extends Base implements ITemplate
                         ''
                     );
                     $content = $this->pregReplaceCallback(
-                        '/(?<!\\\\)((?:\\\\\\\\)*)%((?:_|[a-z])[a-z0-9-_\.]*)\((.*?)\)%/i',
+                        '/(?<!\\\\)((?:\\\\\\\\)*)%((?:_|[a-z])[a-z0-9-_\.]+)\((.*?)\)%/i',
                         $content,
                         'Com\PaulDevelop\Library\Template\Template::processFunctionCall',
                         array_merge(
