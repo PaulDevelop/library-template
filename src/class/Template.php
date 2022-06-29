@@ -1469,7 +1469,7 @@ class Template extends Base implements ITemplate
                 $childNodeList = $configNode->getNodes();
                 /** @var \Com\PaulDevelop\Library\Template\Tag $childNode */
                 foreach ( $childNodeList as $childNode ) {
-                    var_dump($childNode);
+                    //var_dump($childNode);
                     if (gettype($childNode) == 'object'
                         && get_class($childNode) == 'Com\PaulDevelop\Library\Template\Tag'
                     ) {
